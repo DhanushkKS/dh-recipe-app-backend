@@ -16,7 +16,7 @@ const getRecipeByCategory = async (req, res) => {
   }
 };
 
-//Add favourite recipe POST  //home eke fav button eka click karama oka trigger karanna
+//Add favourite recipe POST
 const addFavouriteRecipe = async (req, res) => {
   try {
     const { mealId } = req.body;
@@ -48,14 +48,19 @@ const addFavouriteRecipe = async (req, res) => {
       .json({ message: "Internal server error", error: error });
   }
 };
-//GET  //fav page eke oka pennana fetch karala
+//GET
 const getFavouriteRecipes = async (req, res) => {
-  const user_id = req.user._id;
-  const favouriteRecipes = await Recipe.find({ user_id }).sort({
-    createdAt: -1,
-  });
-  res.status(200).json(favouriteRecipes);
-  console.log("user id,", user_id);
+  try {
+    //  const user_id = req.user._id;
+    const favouriteRecipes = await Recipe.find().sort({ createdAt: -1 });
+
+    console.log("favourite recipes", favouriteRecipes);
+    return res.status(200).json(favouriteRecipes);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
 };
 module.exports = {
   getRecipeByCategory,

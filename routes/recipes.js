@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/:category", getRecipeByCategory);
 
 //get fav recipes
-router.get("/favourites", getFavouriteRecipes);
+router.get("/favourites/all", getFavouriteRecipes);
 
-router.post("/favourites", addFavouriteRecipe);
+router.post("/favourites/create", addFavouriteRecipe);
 module.exports = router;
