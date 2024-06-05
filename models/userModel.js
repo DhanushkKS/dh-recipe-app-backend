@@ -46,7 +46,7 @@ userSchema.statics.registerUser = async function (user) {
   }
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(user.password, salt);
-  const newUser = await this.create({
+  return await this.create({
     email: user.email,
     password: hash,
     telephone: user.telephone,

@@ -21,8 +21,9 @@ const registerUser = async (req, res) => {
   const { user } = req.body;
   try {
     const newUser = await User.registerUser(user);
+    console.log("New user id", newUser);
     const token = await createToken(newUser._id);
-    res.status(200).json({ user, token });
+    res.status(200).json({ newUser, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
