@@ -20,6 +20,8 @@ const getRecipeByCategory = async (req, res) => {
 const addFavouriteRecipe = async (req, res) => {
   try {
     const { mealId } = req.body;
+    const user_id = req.user._id;
+
     const response = await axios.get(
       `${process.env.RECIPE_BY_ID_API}?i=${mealId}`,
     );
@@ -38,7 +40,7 @@ const addFavouriteRecipe = async (req, res) => {
       area: recipe ? recipe.strArea : "dh_recipe",
       instructions: recipe ? recipe.strInstructions : "dh_recipe",
       image: recipe ? recipe.strMealThumb : "dh_recipe",
-      // user_id: user_id, for now
+      user_id: user_id,
     });
     console.log("favourite recipe", favouriteRecipe);
     return res.status(200).json(favouriteRecipe);
@@ -51,8 +53,11 @@ const addFavouriteRecipe = async (req, res) => {
 //GET
 const getFavouriteRecipes = async (req, res) => {
   try {
-    //  const user_id = req.user._id;
-    const favouriteRecipes = await Recipe.find().sort({ createdAt: -1 });
+    const user_id = req.user._id;
+    const favouriteRecipes = await Recipe.find({ user_id }).sort({
+      createdAt: -1,
+    });
+    console.log("user id,", user_id);
 
     console.log("favourite recipes", favouriteRecipes);
     return res.status(200).json(favouriteRecipes);

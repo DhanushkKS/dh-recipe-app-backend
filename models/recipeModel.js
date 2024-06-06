@@ -8,7 +8,7 @@ const recipeSchema = new Schema(
     area: { type: String, required: false },
     instructions: { type: String, required: true },
     image: { type: String },
-    // user_id: { type: String, ref: "User" },
+    user_id: { type: String, ref: "User", required: true },
   },
   { timestamps: true },
 );
