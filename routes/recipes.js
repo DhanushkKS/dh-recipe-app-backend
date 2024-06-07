@@ -7,7 +7,7 @@ const {
 } = require("../controllers/recipeController");
 const router = express.Router();
 
-// router.use(requireAuth);
+router.use(requireAuth);
 
 router.get("/:category", getRecipeByCategory);
 
